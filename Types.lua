@@ -1,4 +1,11 @@
-local WidgetTypes = require(script.Parent.WidgetTypes)
+local owner = "IDKdir"
+local branch = "main"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Iris/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+local WidgetTypes = webImport('WidgetTypes')
 
 export type ID = WidgetTypes.ID
 export type State<T> = WidgetTypes.State<T>
