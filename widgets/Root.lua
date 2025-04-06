@@ -1,4 +1,11 @@
-local Types = require(script.Parent.Parent.Types)
+local owner = "IDKdir"
+local branch = "main"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Iris/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+local Types = webImport('Types')
 
 return function(Iris: Types.Internal, widgets: Types.WidgetUtility)
     local NumNonWindowChildren: number = 0
