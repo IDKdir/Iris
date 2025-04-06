@@ -1,6 +1,13 @@
+local owner = "IDKdir"
+local branch = "main"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Iris/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
 local HttpService: HttpService = game:GetService("HttpService")
 
-local Types = require(script.Parent.Types)
+local Types = webImport('Types')
 
 return function(Iris: Types.Iris): Types.Internal
     --[=[
