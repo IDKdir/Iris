@@ -1,4 +1,11 @@
-local Types = require(script.Parent.Parent.Types)
+local owner = "IDKdir"
+local branch = "main"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Iris/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+local Types = webImport('Types')
 
 type InputDataTypes = "Num" | "Vector2" | "Vector3" | "UDim" | "UDim2" | "Color3" | "Color4" | "Rect" | "Enum" | "" | string
 
