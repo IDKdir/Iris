@@ -1,5 +1,13 @@
 --!optimize 2
-local Types = require(script.Types)
+
+local owner = "IDKdir"
+local branch = "main"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Iris/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+local Types = webImport('Types')
 
 --[=[
     @class Iris
@@ -22,7 +30,7 @@ local Types = require(script.Types)
 ]=]
 local Iris = {} :: Types.Iris
 
-local Internal: Types.Internal = require(script.Internal)(Iris)
+local Internal: Types.Internal = webImport('Internal')(Iris)
 
 --[=[
     @within Iris
@@ -319,7 +327,7 @@ end
 
     TemplateConfig provides a table of default styles and configurations which you may apply to your UI.
 ]=]
-Iris.TemplateConfig = require(script.config)
+Iris.TemplateConfig = webImport('config')
 Iris.UpdateGlobalConfig(Iris.TemplateConfig.colorDark) -- use colorDark and sizeDefault themes by default
 Iris.UpdateGlobalConfig(Iris.TemplateConfig.sizeDefault)
 Iris.UpdateGlobalConfig(Iris.TemplateConfig.utilityDefault)
@@ -666,9 +674,9 @@ end
     Iris:Connect(Iris.ShowDemoWindow)
     ```
 ]=]
-Iris.ShowDemoWindow = require(script.demoWindow)(Iris)
+Iris.ShowDemoWindow = webImport('demoWindow')(Iris)
 
-require(script.widgets)(Internal)
-require(script.API)(Iris)
+webImport('widgets')(Internal)
+webImport('API')(Iris)
 
 return Iris
